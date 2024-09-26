@@ -29,6 +29,7 @@ namespace BillingSoftware
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.item_unit_label = new System.Windows.Forms.Label();
@@ -45,7 +46,27 @@ namespace BillingSoftware
             this.item_type_service = new System.Windows.Forms.RadioButton();
             this.item_type_goods = new System.Windows.Forms.RadioButton();
             this.itemSaveBtn = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.itemmasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.billingFormDataDataSet = new BillingSoftware.billingFormDataDataSet();
+            this.item_masterTableAdapter = new BillingSoftware.billingFormDataDataSetTableAdapters.item_masterTableAdapter();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemtypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemunitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemsellingpriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemaccountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemdescriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.billingFormDataDataSet1 = new BillingSoftware.billingFormDataDataSet1();
+            this.accountmasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.account_masterTableAdapter = new BillingSoftware.billingFormDataDataSet1TableAdapters.account_masterTableAdapter();
+            this.item_unit_tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemmasterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -159,19 +180,15 @@ namespace BillingSoftware
             // 
             // item_account_select
             // 
+            this.item_account_select.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.accountmasterBindingSource, "account_name", true));
+            this.item_account_select.DataSource = this.accountmasterBindingSource;
+            this.item_account_select.DisplayMember = "account_name";
             this.item_account_select.FormattingEnabled = true;
-            this.item_account_select.Items.AddRange(new object[] {
-            "Discount",
-            "General Income",
-            "Interest income",
-            "Late Fee Income",
-            "Other Charges",
-            "Sales",
-            "Shipping Charge"});
             this.item_account_select.Location = new System.Drawing.Point(102, 195);
             this.item_account_select.Name = "item_account_select";
             this.item_account_select.Size = new System.Drawing.Size(170, 21);
             this.item_account_select.TabIndex = 21;
+            this.item_account_select.ValueMember = "account_name";
             // 
             // item_name
             // 
@@ -224,20 +241,121 @@ namespace BillingSoftware
             this.itemSaveBtn.UseVisualStyleBackColor = true;
             this.itemSaveBtn.Click += new System.EventHandler(this.itemSaveBtn_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.itemtypeDataGridViewTextBoxColumn,
+            this.itemnameDataGridViewTextBoxColumn,
+            this.itemunitDataGridViewTextBoxColumn,
+            this.itemsellingpriceDataGridViewTextBoxColumn,
+            this.itemaccountDataGridViewTextBoxColumn,
+            this.itemdescriptionDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.itemmasterBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(475, 78);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(743, 387);
+            this.dataGridView1.TabIndex = 17;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            // 
+            // itemmasterBindingSource
+            // 
+            this.itemmasterBindingSource.DataMember = "item_master";
+            this.itemmasterBindingSource.DataSource = this.billingFormDataDataSet;
+            // 
+            // billingFormDataDataSet
+            // 
+            this.billingFormDataDataSet.DataSetName = "billingFormDataDataSet";
+            this.billingFormDataDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // item_masterTableAdapter
+            // 
+            this.item_masterTableAdapter.ClearBeforeFill = true;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Sl. No";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // itemtypeDataGridViewTextBoxColumn
+            // 
+            this.itemtypeDataGridViewTextBoxColumn.DataPropertyName = "item_type";
+            this.itemtypeDataGridViewTextBoxColumn.HeaderText = "Item Type";
+            this.itemtypeDataGridViewTextBoxColumn.Name = "itemtypeDataGridViewTextBoxColumn";
+            // 
+            // itemnameDataGridViewTextBoxColumn
+            // 
+            this.itemnameDataGridViewTextBoxColumn.DataPropertyName = "item_name";
+            this.itemnameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.itemnameDataGridViewTextBoxColumn.Name = "itemnameDataGridViewTextBoxColumn";
+            // 
+            // itemunitDataGridViewTextBoxColumn
+            // 
+            this.itemunitDataGridViewTextBoxColumn.DataPropertyName = "item_unit";
+            this.itemunitDataGridViewTextBoxColumn.HeaderText = "Unit";
+            this.itemunitDataGridViewTextBoxColumn.Name = "itemunitDataGridViewTextBoxColumn";
+            // 
+            // itemsellingpriceDataGridViewTextBoxColumn
+            // 
+            this.itemsellingpriceDataGridViewTextBoxColumn.DataPropertyName = "item_selling_price";
+            this.itemsellingpriceDataGridViewTextBoxColumn.HeaderText = "Selling Price";
+            this.itemsellingpriceDataGridViewTextBoxColumn.Name = "itemsellingpriceDataGridViewTextBoxColumn";
+            // 
+            // itemaccountDataGridViewTextBoxColumn
+            // 
+            this.itemaccountDataGridViewTextBoxColumn.DataPropertyName = "item_account";
+            this.itemaccountDataGridViewTextBoxColumn.HeaderText = "Account";
+            this.itemaccountDataGridViewTextBoxColumn.Name = "itemaccountDataGridViewTextBoxColumn";
+            // 
+            // itemdescriptionDataGridViewTextBoxColumn
+            // 
+            this.itemdescriptionDataGridViewTextBoxColumn.DataPropertyName = "item_description";
+            this.itemdescriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.itemdescriptionDataGridViewTextBoxColumn.Name = "itemdescriptionDataGridViewTextBoxColumn";
+            // 
+            // billingFormDataDataSet1
+            // 
+            this.billingFormDataDataSet1.DataSetName = "billingFormDataDataSet1";
+            this.billingFormDataDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // accountmasterBindingSource
+            // 
+            this.accountmasterBindingSource.DataMember = "account_master";
+            this.accountmasterBindingSource.DataSource = this.billingFormDataDataSet1;
+            // 
+            // account_masterTableAdapter
+            // 
+            this.account_masterTableAdapter.ClearBeforeFill = true;
+            // 
+            // item_unit_tooltip
+            // 
+            this.item_unit_tooltip.ToolTipTitle = "The item will be measured in terms of this unit (e.g.: kg, dozen)";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 531);
+            this.ClientSize = new System.Drawing.Size(1267, 618);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Item Management";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemmasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,6 +379,21 @@ namespace BillingSoftware
         private System.Windows.Forms.TextBox item_name;
         private System.Windows.Forms.Label item_name_label;
         private System.Windows.Forms.ComboBox item_account_select;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private billingFormDataDataSet billingFormDataDataSet;
+        private System.Windows.Forms.BindingSource itemmasterBindingSource;
+        private billingFormDataDataSetTableAdapters.item_masterTableAdapter item_masterTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemtypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemunitDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemsellingpriceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemaccountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemdescriptionDataGridViewTextBoxColumn;
+        private billingFormDataDataSet1 billingFormDataDataSet1;
+        private System.Windows.Forms.BindingSource accountmasterBindingSource;
+        private billingFormDataDataSet1TableAdapters.account_masterTableAdapter account_masterTableAdapter;
+        private System.Windows.Forms.ToolTip item_unit_tooltip;
     }
 }
 
