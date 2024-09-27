@@ -55,11 +55,11 @@ namespace BillingSoftware
                 return;
             }
 
-            if (item_account_select.SelectedItem == null)
-            {
-                MessageBox.Show("Please select an Item Account.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            // if (item_account_select.SelectedItem == null)
+            // {
+            //     MessageBox.Show("Please select an Item Account.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //     return;
+            // }
 
             //if (string.IsNullOrWhiteSpace(item_description.Text))
             //{
@@ -81,13 +81,14 @@ namespace BillingSoftware
                 using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("insert into item_master values(@item_type, @item_name, @item_unit, @item_selling_price, @item_account, @item_description)", connection);
+                    var mSql = "insert into item_master (item_type,item_name, item_unit, item_selling_price, item_account, item_description) values(@item_type, @item_name, @item_unit, @item_selling_price, @item_account, @item_description)";
+                    SqlCommand cmd = new SqlCommand(mSql, connection);
 
                     cmd.Parameters.AddWithValue("@item_type", mType);
                     cmd.Parameters.AddWithValue("@item_name", item_name.Text);
                     cmd.Parameters.AddWithValue("@item_unit", item_unit_select.SelectedItem);
                     cmd.Parameters.AddWithValue("@item_selling_price", item_selling_price.Text);
-                    cmd.Parameters.AddWithValue("@item_account", item_account_select.SelectedItem);
+                    cmd.Parameters.AddWithValue("@item_account", item_account_select.Text);
                     cmd.Parameters.AddWithValue("@item_description", item_description.Text);
 
                     cmd.ExecuteNonQuery();
@@ -104,7 +105,8 @@ namespace BillingSoftware
 
                 // Show success message
                 MessageBox.Show("Successfully saved", "Save Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.item_masterTableAdapter.Fill(this.billingFormDataDataSet.item_master);
+                // this.item_masterTableAdapter.Fill(this.billingFormDataDataSet.item_master);
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -126,11 +128,63 @@ namespace BillingSoftware
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'billingFormDataDataSet1.account_master' table. You can move, or remove it, as needed.
-            this.account_masterTableAdapter.Fill(this.billingFormDataDataSet1.account_master);
-            // TODO: This line of code loads data into the 'billingFormDataDataSet.item_master' table. You can move, or remove it, as needed.
-            this.item_masterTableAdapter.Fill(this.billingFormDataDataSet.item_master);
+            //// TODO: This line of code loads data into the 'itemMasterListViewDataSet.item_master' table. You can move, or remove it, as needed.
+            //this.item_masterTableAdapter1.Fill(this.itemMasterListViewDataSet.item_master);
+            //// TODO: This line of code loads data into the 'itemMasterListViewDataSet.account_master' table. You can move, or remove it, as needed.
+            //this.account_masterTableAdapter2.Fill(this.itemMasterListViewDataSet.account_master);
+            //// TODO: This line of code loads data into the 'billingFormDataDataSet2.account_master' table. You can move, or remove it, as needed.
+            //this.account_masterTableAdapter1.Fill(this.billingFormDataDataSet2.account_master);
+            //// TODO: This line of code loads data into the 'billingFormDataDataSet1.account_master' table. You can move, or remove it, as needed.
+            //this.account_masterTableAdapter.Fill(this.billingFormDataDataSet1.account_master);
+            //// TODO: This line of code loads data into the 'billingFormDataDataSet.item_master' table. You can move, or remove it, as needed.
+            //this.item_masterTableAdapter.Fill(this.billingFormDataDataSet.item_master);
+            LoadData();
+        }
+        private void LoadData()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    // SQL query
+                    string query = @"
+                        SELECT 
+                            im.id AS ItemID, 
+                            im.item_type AS ItemType, 
+                            im.item_name AS ItemName, 
+                            im.item_unit AS ItemUnit, 
+                            im.item_selling_price AS SellingPrice, 
+                            im.item_account AS AccountID, 
+                            im.item_description AS Description, 
+                            am.account_name AS AccountName
+                        FROM dbo.item_master AS im
+                        JOIN dbo.account_master AS am
+                            ON im.item_account = am.id
+                        WHERE im.status = 'A'";
 
+                    // Execute the query and fill the data into a DataTable
+                    SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // Bind the DataTable to the DataGridView
+                    dataGridView1.DataSource = dt;
+
+                    // (Optional) Set custom column header text in the DataGridView
+                    dataGridView1.Columns["ItemID"].HeaderText = "Item ID";
+                    dataGridView1.Columns["ItemType"].HeaderText = "Type";
+                    dataGridView1.Columns["ItemName"].HeaderText = "Name";
+                    dataGridView1.Columns["ItemUnit"].HeaderText = "Unit";
+                    dataGridView1.Columns["SellingPrice"].HeaderText = "Price";
+                    dataGridView1.Columns["AccountName"].HeaderText = "Account Name";
+                    dataGridView1.Columns["Description"].HeaderText = "Description";
+                    dataGridView1.Columns["AccountID"].HeaderText = "Account ID";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -152,7 +206,7 @@ namespace BillingSoftware
             int itemIdIndex = FindColumnIndexByPropertyName("id");
 
             if (itemTypeIndex >= 0 && itemNameIndex >= 0 && itemUnitIndex >= 0 &&
-        itemSellingPriceIndex >= 0 && itemAccountIndex >= 0 && itemDescriptionIndex >= 0)
+            itemSellingPriceIndex >= 0 && itemAccountIndex >= 0 && itemDescriptionIndex >= 0)
             {
                // Check if expected columns exist using DataPropertyName
                 bool hasRequiredColumns = true;
@@ -294,8 +348,123 @@ namespace BillingSoftware
                 MessageBox.Show($"Error updating data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // string value = "";
+            // value = dataGridView1.Rows[e.RowIndex].Cells["ItemName"].Value.ToString();
+            // MessageBox.Show("Data in the datagridview: "+ value, "Test Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Ensure the row index is valid
+            if (e.RowIndex < 0 || e.RowIndex >= dataGridView1.Rows.Count)
+                return; // Ignore if row index is out of bounds
 
+            //MessageBox.Show("CellEndEdit event triggered!");
+            // Get the edited row's data
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
+            // Fetch the column indices using DataPropertyName
+            int itemTypeIndex = FindColumnIndexByPropertyName("ItemType");
+            int itemNameIndex = FindColumnIndexByPropertyName("ItemName");
+            int itemUnitIndex = FindColumnIndexByPropertyName("ItemUnit");
+            int itemSellingPriceIndex = FindColumnIndexByPropertyName("SellingPrice");
+            int itemAccountIndex = FindColumnIndexByPropertyName("AccountName");
+            int itemDescriptionIndex = FindColumnIndexByPropertyName("Description");
+            int itemIdIndex = FindColumnIndexByPropertyName("ItemID");
+            int itemAccountIdIndex = FindColumnIndexByPropertyName("AccountID");
 
+            if (itemTypeIndex >= 0 && itemNameIndex >= 0 && itemUnitIndex >= 0 &&
+            itemSellingPriceIndex >= 0 && itemAccountIndex >= 0 && itemDescriptionIndex >= 0)
+            {
+                // Check if expected columns exist using DataPropertyName
+                bool hasRequiredColumns = true;
+                string[] requiredColumns = { "ItemType", "ItemName", "ItemUnit", "SellingPrice", "AccountName", "Description", "ItemID" };
+
+                foreach (string columnName in requiredColumns)
+                {
+                    bool columnExists = false;
+
+                    foreach (DataGridViewColumn column in dataGridView1.Columns)
+                    {
+                        Console.WriteLine(column.Name);
+                        Console.ReadLine();
+                        // Check if DataPropertyName matches the required column name
+                        if (column.DataPropertyName.Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            columnExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!columnExists)
+                    {
+                        hasRequiredColumns = false;
+                        MessageBox.Show($"The required column '{columnName}' is missing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    }
+                }
+                if (hasRequiredColumns)
+                {
+                    // Access the values by column index
+                    string itemType = row.Cells[itemTypeIndex].Value?.ToString();
+                    string itemName = row.Cells[itemNameIndex].Value?.ToString();
+                    string itemUnit = row.Cells[itemUnitIndex].Value?.ToString();
+                    string itemSellingPrice = row.Cells[itemSellingPriceIndex].Value?.ToString();
+                    string itemAccount = row.Cells[itemAccountIndex].Value?.ToString();
+                    string itemDescription = row.Cells[itemDescriptionIndex].Value?.ToString();
+
+                    // Assuming the ID is part of the data bound properties
+                    int itemId = Convert.ToInt32(row.Cells[itemIdIndex].Value); // Adjust if DataPropertyName is different
+                    int itemAccountID = Convert.ToInt32(row.Cells[itemAccountIdIndex].Value); // Adjust if DataPropertyName is different
+
+                    item_name.Text = itemName;
+                    item_unit_select.Text = itemUnit;
+                    item_selling_price.Text = itemSellingPrice;
+                    item_account_select.SelectedIndex = itemAccountID;
+                    item_description.Text= itemDescription;
+                    item_type_goods.Checked = (itemType== "goods") ? true : false;
+                    item_type_goods.Checked = (itemType == "service") ? true : false;
+
+                    // Validate the inputs before proceeding
+                    //if (ValidateInputs(itemType, itemName, itemUnit, itemSellingPrice, itemAccount, itemDescription))
+                    //{
+                    //    // Update the database with the edited values if validation passes
+                    //    UpdateDatabase(itemId, itemType, itemName, itemUnit, itemSellingPrice, itemAccount, itemDescription);
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Please ensure all fields are filled in correctly before saving.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //}
+                }
+            }
+            else
+            {
+                MessageBox.Show("One or more expected columns do not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void fillByToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.account_masterTableAdapter2.FillBy(this.itemMasterListViewDataSet.account_master);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getAccountDataForItemsSaveToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.account_masterTableAdapter2.getAccountDataForItemsSave(this.itemMasterListViewDataSet.account_master);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

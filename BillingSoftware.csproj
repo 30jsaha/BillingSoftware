@@ -81,6 +81,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>billingFormDataDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="billingFormDataDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>billingFormDataDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dbConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -93,6 +98,11 @@
     </Compile>
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="itemMasterListViewDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>itemMasterListViewDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="MDIParent1.cs">
       <SubType>Form</SubType>
@@ -153,6 +163,28 @@
     <None Include="billingFormDataDataSet1.xss">
       <DependentUpon>billingFormDataDataSet1.xsd</DependentUpon>
     </None>
+    <None Include="billingFormDataDataSet2.xsc">
+      <DependentUpon>billingFormDataDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="billingFormDataDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>billingFormDataDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="billingFormDataDataSet2.xss">
+      <DependentUpon>billingFormDataDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="itemMasterListViewDataSet.xsc">
+      <DependentUpon>itemMasterListViewDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="itemMasterListViewDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>itemMasterListViewDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="itemMasterListViewDataSet.xss">
+      <DependentUpon>itemMasterListViewDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -172,6 +204,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
