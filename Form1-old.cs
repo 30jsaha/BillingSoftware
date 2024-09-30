@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,9 +37,12 @@ namespace BillingSoftware
         }
         private void itemSaveBtn_Click(object sender, EventArgs e)
         {
-            
-            string mType = item_type_goods.Checked ? "goods" : "service";
             // Perform validation checks before executing the insert
+            if (string.IsNullOrWhiteSpace(item_name.Text))
+            {
+                MessageBox.Show("Item Name cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (item_unit_select.SelectedItem == null)
             {
@@ -47,24 +50,38 @@ namespace BillingSoftware
                 return;
             }
 
-            if (item_account_select.SelectedItem == null)
+            if (string.IsNullOrWhiteSpace(item_selling_price.Text))
             {
-                MessageBox.Show("Please select an Item Account.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Item Selling Price cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // if (item_account_select.SelectedItem == null)
+            // {
+            //     MessageBox.Show("Please select an Item Account.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //     return;
+            // }
+
+            //if (string.IsNullOrWhiteSpace(item_description.Text))
+            //{
+            //    MessageBox.Show("Item Description cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             //   return;
+            //}
 
             if (!item_type_goods.Checked && !item_type_service.Checked)
             {
                 MessageBox.Show("Please select the Item Type (Goods or Service).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!ValidateInputs(mType, item_name.Text, item_unit_select.Text, item_selling_price.Text, item_account_select.Text, item_description.Text))
-            {
-                MessageBox.Show("Oops Something went wrong ! Please ensure all fields are filled in correctly before saving", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
             // If validation passes, proceed to save data
+            string mType = item_type_goods.Checked ? "goods" : "service";
+            // string itemType = row.Cells[itemTypeIndex].Value?.ToString();
+            // string itemName = row.Cells[itemNameIndex].Value?.ToString();
+            // string itemUnit = row.Cells[itemUnitIndex].Value?.ToString();
+            // string itemSellingPrice = row.Cells[itemSellingPriceIndex].Value?.ToString();
+            // string itemAccount = row.Cells[itemAccountIndex].Value?.ToString();
+            // string itemDescription = row.Cells[itemDescriptionIndex].Value?.ToString();
             if (item_id==0)
             {
                 try
@@ -174,7 +191,6 @@ namespace BillingSoftware
             itemAddNewBtn.Enabled = true;
             itemSaveBtn.Enabled = false;
             itemModifyBtn.Enabled = false;
-            itemDeleteBtn.Enabled = false;
             item_id = 0;
         }
         private void LoadData()
@@ -190,10 +206,10 @@ namespace BillingSoftware
                             im.item_type AS ItemType, 
                             im.item_name AS ItemName, 
                             im.item_unit AS ItemUnit, 
-                            im.item_selling_price AS SellingPrice,
+                            im.item_selling_price AS SellingPrice, 
+                            im.item_account AS AccountID, 
                             im.item_description AS Description, 
-                            am.account_name AS AccountName,
-                            im.item_account AS AccountID
+                            am.account_name AS AccountName
                         FROM dbo.item_master AS im
                         JOIN dbo.account_master AS am
                             ON im.item_account = am.id
@@ -216,7 +232,6 @@ namespace BillingSoftware
                     dataGridView1.Columns["AccountName"].HeaderText = "Account Name";
                     dataGridView1.Columns["Description"].HeaderText = "Description";
                     dataGridView1.Columns["AccountID"].HeaderText = "Account ID";
-                    dataGridView1.Columns["AccountID"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -351,6 +366,7 @@ namespace BillingSoftware
             //    MessageBox.Show("Item Description cannot be empty.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    return false;
             //}
+
             return true;
         }
 
@@ -390,11 +406,14 @@ namespace BillingSoftware
             itemAddNewBtn.Enabled = true;
             itemSaveBtn.Enabled = false;
             itemModifyBtn.Enabled = true;
-            itemDeleteBtn.Enabled = true;
+            // string value = "";
+            // value = dataGridView1.Rows[e.RowIndex].Cells["ItemName"].Value.ToString();
+            // MessageBox.Show("Data in the datagridview: "+ value, "Test Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             // Ensure the row index is valid
             if (e.RowIndex < 0 || e.RowIndex >= dataGridView1.Rows.Count)
                 return; // Ignore if row index is out of bounds
 
+            //MessageBox.Show("CellEndEdit event triggered!");
             // Get the edited row's data
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
@@ -543,7 +562,6 @@ namespace BillingSoftware
             itemAddNewBtn.Enabled = false;
             itemSaveBtn.Enabled = true;
             itemModifyBtn.Enabled = false;
-            itemDeleteBtn.Enabled = false;
             item_id = 0;
         }
 
@@ -560,68 +578,6 @@ namespace BillingSoftware
             itemAddNewBtn.Enabled = true;
             itemSaveBtn.Enabled = true;
             itemModifyBtn.Enabled = false;
-            itemDeleteBtn.Enabled = false;
-        }
-
-        private void itemDeleteBtn_Click(object sender, EventArgs e)
-        {
-            if (item_id==0)
-            {
-                MessageBox.Show("Oops Something Went Wrong !", "Operation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            DialogResult dialogResult = MessageBox.Show("Remove the item ?", "Remove Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(dialogResult == DialogResult.Yes)
-            {
-                try
-                {
-                    using (SqlConnection connection = new SqlConnection(GetConnectionString()))
-                    {
-                        connection.Open();
-                        string query = "UPDATE item_master SET status = @status " +
-                                    "WHERE id = @id";
-
-                        SqlCommand cmd = new SqlCommand(query, connection);
-                        cmd.Parameters.AddWithValue("@status", "D");
-                        cmd.Parameters.AddWithValue("@id", item_id);
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    MessageBox.Show("Removed successfully", "Data Remove Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error removing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                //after successfull deletion, Load the datagridview data again
-                LoadData();
-                item_name.Enabled = false;
-                item_unit_select.Enabled = false;
-                item_selling_price.Enabled = false;
-                item_account_select.Enabled = false;
-                item_description.Enabled = false;
-                item_type_goods.Enabled = false;
-                item_type_service.Enabled = false;
-
-                item_name.Clear();
-                item_unit_select.SelectedIndex = -1;
-                item_selling_price.Clear();
-                item_account_select.SelectedIndex = -1;
-                item_description.Clear();
-                item_type_goods.Checked = false;
-                item_type_service.Checked = false;
-
-                itemAddNewBtn.Enabled = true;
-                itemSaveBtn.Enabled = false;
-                itemModifyBtn.Enabled = false;
-                itemDeleteBtn.Enabled = false;
-                item_id = 0;
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do nothing
-            }
         }
     }
 }

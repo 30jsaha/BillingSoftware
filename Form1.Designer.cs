@@ -40,18 +40,25 @@ namespace BillingSoftware
             this.item_description_label = new System.Windows.Forms.Label();
             this.item_description = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.itemDeleteBtn = new System.Windows.Forms.Button();
+            this.itemModifyBtn = new System.Windows.Forms.Button();
+            this.itemAddNewBtn = new System.Windows.Forms.Button();
             this.item_account_select = new System.Windows.Forms.ComboBox();
             this.accountmasterBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.itemMasterListViewDataSet = new BillingSoftware.itemMasterListViewDataSet();
+            this.accountmasterBindingSource5 = new System.Windows.Forms.BindingSource(this.components);
+            this.billingFormDataAccountsDataSet = new BillingSoftware.billingFormDataAccountsDataSet();
             this.item_name = new System.Windows.Forms.TextBox();
             this.item_name_label = new System.Windows.Forms.Label();
             this.item_type_service = new System.Windows.Forms.RadioButton();
             this.item_type_goods = new System.Windows.Forms.RadioButton();
             this.itemSaveBtn = new System.Windows.Forms.Button();
+            this.accountmasterBindingSource6 = new System.Windows.Forms.BindingSource(this.components);
+            this.billingFormDataDataSet2 = new BillingSoftware.billingFormDataDataSet2();
+            this.accountmasterBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             this.accountmasterBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.itemMasterListViewDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.accountmasterBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.billingFormDataDataSet2 = new BillingSoftware.billingFormDataDataSet2();
             this.accountmasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.billingFormDataDataSet1 = new BillingSoftware.billingFormDataDataSet1();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -68,13 +75,18 @@ namespace BillingSoftware
             this.fillByToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.getAccountDataForItemsSaveToolStrip = new System.Windows.Forms.ToolStrip();
             this.getAccountDataForItemsSaveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.account_masterTableAdapter3 = new BillingSoftware.billingFormDataAccountsDataSetTableAdapters.account_masterTableAdapter();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMasterListViewDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataAccountsDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMasterListViewDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -173,6 +185,9 @@ namespace BillingSoftware
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.itemDeleteBtn);
+            this.groupBox1.Controls.Add(this.itemModifyBtn);
+            this.groupBox1.Controls.Add(this.itemAddNewBtn);
             this.groupBox1.Controls.Add(this.item_account_select);
             this.groupBox1.Controls.Add(this.item_name);
             this.groupBox1.Controls.Add(this.item_name_label);
@@ -194,11 +209,43 @@ namespace BillingSoftware
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Item Details";
             // 
+            // itemDeleteBtn
+            // 
+            this.itemDeleteBtn.Enabled = false;
+            this.itemDeleteBtn.Location = new System.Drawing.Point(296, 364);
+            this.itemDeleteBtn.Name = "itemDeleteBtn";
+            this.itemDeleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.itemDeleteBtn.TabIndex = 24;
+            this.itemDeleteBtn.Text = "Remove";
+            this.itemDeleteBtn.UseVisualStyleBackColor = true;
+            this.itemDeleteBtn.Click += new System.EventHandler(this.itemDeleteBtn_Click);
+            // 
+            // itemModifyBtn
+            // 
+            this.itemModifyBtn.Enabled = false;
+            this.itemModifyBtn.Location = new System.Drawing.Point(134, 364);
+            this.itemModifyBtn.Name = "itemModifyBtn";
+            this.itemModifyBtn.Size = new System.Drawing.Size(75, 23);
+            this.itemModifyBtn.TabIndex = 23;
+            this.itemModifyBtn.Text = "Modify";
+            this.itemModifyBtn.UseVisualStyleBackColor = true;
+            this.itemModifyBtn.Click += new System.EventHandler(this.itemModifyBtn_Click);
+            // 
+            // itemAddNewBtn
+            // 
+            this.itemAddNewBtn.Location = new System.Drawing.Point(53, 364);
+            this.itemAddNewBtn.Name = "itemAddNewBtn";
+            this.itemAddNewBtn.Size = new System.Drawing.Size(75, 23);
+            this.itemAddNewBtn.TabIndex = 22;
+            this.itemAddNewBtn.Text = "Add New";
+            this.itemAddNewBtn.UseVisualStyleBackColor = true;
+            this.itemAddNewBtn.Click += new System.EventHandler(this.itemAddNewBtn_Click);
+            // 
             // item_account_select
             // 
             this.item_account_select.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.accountmasterBindingSource2, "account_name", true));
-            this.item_account_select.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.accountmasterBindingSource2, "id", true));
-            this.item_account_select.DataSource = this.accountmasterBindingSource2;
+            this.item_account_select.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.accountmasterBindingSource5, "id", true));
+            this.item_account_select.DataSource = this.accountmasterBindingSource5;
             this.item_account_select.DisplayMember = "account_name";
             this.item_account_select.FormattingEnabled = true;
             this.item_account_select.Location = new System.Drawing.Point(102, 195);
@@ -216,6 +263,16 @@ namespace BillingSoftware
             // 
             this.itemMasterListViewDataSet.DataSetName = "itemMasterListViewDataSet";
             this.itemMasterListViewDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // accountmasterBindingSource5
+            // 
+            this.accountmasterBindingSource5.DataMember = "account_master";
+            this.accountmasterBindingSource5.DataSource = this.billingFormDataAccountsDataSet;
+            // 
+            // billingFormDataAccountsDataSet
+            // 
+            this.billingFormDataAccountsDataSet.DataSetName = "billingFormDataAccountsDataSet";
+            this.billingFormDataAccountsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // item_name
             // 
@@ -260,13 +317,29 @@ namespace BillingSoftware
             // 
             // itemSaveBtn
             // 
-            this.itemSaveBtn.Location = new System.Drawing.Point(338, 356);
+            this.itemSaveBtn.Enabled = false;
+            this.itemSaveBtn.Location = new System.Drawing.Point(215, 364);
             this.itemSaveBtn.Name = "itemSaveBtn";
             this.itemSaveBtn.Size = new System.Drawing.Size(75, 23);
             this.itemSaveBtn.TabIndex = 16;
             this.itemSaveBtn.Text = "Save";
             this.itemSaveBtn.UseVisualStyleBackColor = true;
             this.itemSaveBtn.Click += new System.EventHandler(this.itemSaveBtn_Click);
+            // 
+            // accountmasterBindingSource6
+            // 
+            this.accountmasterBindingSource6.DataMember = "account_master";
+            this.accountmasterBindingSource6.DataSource = this.billingFormDataDataSet2;
+            // 
+            // billingFormDataDataSet2
+            // 
+            this.billingFormDataDataSet2.DataSetName = "billingFormDataDataSet2";
+            this.billingFormDataDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // accountmasterBindingSource4
+            // 
+            this.accountmasterBindingSource4.DataMember = "account_master";
+            this.accountmasterBindingSource4.DataSource = this.billingFormDataAccountsDataSet;
             // 
             // accountmasterBindingSource3
             // 
@@ -282,11 +355,6 @@ namespace BillingSoftware
             // 
             this.accountmasterBindingSource1.DataMember = "account_master";
             this.accountmasterBindingSource1.DataSource = this.billingFormDataDataSet2;
-            // 
-            // billingFormDataDataSet2
-            // 
-            this.billingFormDataDataSet2.DataSetName = "billingFormDataDataSet2";
-            this.billingFormDataDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // accountmasterBindingSource
             // 
@@ -308,7 +376,7 @@ namespace BillingSoftware
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(743, 387);
             this.dataGridView1.TabIndex = 17;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             // 
             // billingFormDataDataSet
@@ -386,6 +454,10 @@ namespace BillingSoftware
             this.getAccountDataForItemsSaveToolStripButton.Text = "getAccountDataForItemsSave";
             this.getAccountDataForItemsSaveToolStripButton.Click += new System.EventHandler(this.getAccountDataForItemsSaveToolStripButton_Click);
             // 
+            // account_masterTableAdapter3
+            // 
+            this.account_masterTableAdapter3.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -405,10 +477,14 @@ namespace BillingSoftware
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMasterListViewDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataAccountsDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemMasterListViewDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.accountmasterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -464,6 +540,14 @@ namespace BillingSoftware
         private System.Windows.Forms.ToolStripButton fillByToolStripButton;
         private System.Windows.Forms.ToolStrip getAccountDataForItemsSaveToolStrip;
         private System.Windows.Forms.ToolStripButton getAccountDataForItemsSaveToolStripButton;
+        private billingFormDataAccountsDataSet billingFormDataAccountsDataSet;
+        private System.Windows.Forms.BindingSource accountmasterBindingSource4;
+        private billingFormDataAccountsDataSetTableAdapters.account_masterTableAdapter account_masterTableAdapter3;
+        private System.Windows.Forms.Button itemAddNewBtn;
+        private System.Windows.Forms.Button itemModifyBtn;
+        private System.Windows.Forms.Button itemDeleteBtn;
+        private System.Windows.Forms.BindingSource accountmasterBindingSource5;
+        private System.Windows.Forms.BindingSource accountmasterBindingSource6;
     }
 }
 
