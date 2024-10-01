@@ -27,6 +27,18 @@ namespace BillingSoftware
         {
             return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
         }
+        public static string GetToday(bool tm = true, string dateFormat = "yyyy-MM-dd", string timeFormat="hh:mm:ss")
+        {
+            string today = "";
+            if (tm)
+            {
+                today=DateTime.Now.ToString(dateFormat+" "+timeFormat);
+            } else {
+                today=DateTime.Now.ToString(dateFormat);
+            }
+            // return DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            return today;
+        }
         public static void ConnectToDatabase()
         {
             using (SqlConnection connection = new SqlConnection(GetConnectionString()))
@@ -67,12 +79,15 @@ namespace BillingSoftware
             // If validation passes, proceed to save data
             if (item_id==0)
             {
+                // DateTime now = DateTime.Now;
+                // MessageBox.Show(now);
+                // return;
                 try
                 {
                     using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                     {
                         connection.Open();
-                        var mSql = "insert into item_master (item_type,item_name, item_unit, item_selling_price, item_account, item_description) values(@item_type, @item_name, @item_unit, @item_selling_price, @item_account, @item_description)";
+                        var mSql = "insert into item_master (item_type,item_name, item_unit, item_selling_price, item_account, item_description, created_at) values(@item_type, @item_name, @item_unit, @item_selling_price, @item_account, @item_description, @created_at)";
                         SqlCommand cmd = new SqlCommand(mSql, connection);
 
                         cmd.Parameters.AddWithValue("@item_type", mType);
@@ -81,17 +96,18 @@ namespace BillingSoftware
                         cmd.Parameters.AddWithValue("@item_selling_price", item_selling_price.Text);
                         cmd.Parameters.AddWithValue("@item_account", item_account_select.SelectedValue);
                         cmd.Parameters.AddWithValue("@item_description", item_description.Text);
+                        cmd.Parameters.AddWithValue("@created_at", DateTime.Now);
 
                         cmd.ExecuteNonQuery();
                     }
 
                     // Clear fields after successful save
                     item_name.Clear();
-                    item_unit_select.SelectedIndex = -1;
+                    item_unit_select.SelectedIndex = 0;
                     item_selling_price.Clear();
-                    item_account_select.SelectedIndex = -1;
+                    item_account_select.SelectedIndex = 0;
                     item_description.Clear();
-                    item_type_goods.Checked = false;
+                    item_type_goods.Checked = true;
                     item_type_service.Checked = false;
 
                     // Show success message
@@ -123,11 +139,11 @@ namespace BillingSoftware
             }
             LoadData();
             item_name.Clear();
-            item_unit_select.SelectedIndex = -1;
+            item_unit_select.SelectedIndex = 0;
             item_selling_price.Clear();
-            item_account_select.SelectedIndex = -1;
+            item_account_select.SelectedIndex = 0;
             item_description.Clear();
-            item_type_goods.Checked = false;
+            item_type_goods.Checked = true;
             item_type_service.Checked = false;
 
             item_name.Enabled = false;
@@ -363,7 +379,7 @@ namespace BillingSoftware
                 {
                     connection.Open();
                     string query = "UPDATE item_master SET item_type = @item_type, item_name = @item_name, item_unit = @item_unit, " +
-                                   "item_selling_price = @item_selling_price, item_account = @item_account, item_description = @item_description " +
+                                   "item_selling_price = @item_selling_price, item_account = @item_account, item_description = @item_description, updated_at = @updated_at " +
                                    "WHERE id = @id";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -373,6 +389,7 @@ namespace BillingSoftware
                     cmd.Parameters.AddWithValue("@item_selling_price", itemSellingPrice);
                     cmd.Parameters.AddWithValue("@item_account", itemAccount);
                     cmd.Parameters.AddWithValue("@item_description", itemDescription);
+                    cmd.Parameters.AddWithValue("@updated_at", DateTime.Now);
                     cmd.Parameters.AddWithValue("@id", itemId);
 
                     cmd.ExecuteNonQuery();
@@ -525,11 +542,11 @@ namespace BillingSoftware
         private void itemAddNewBtn_Click(object sender, EventArgs e)
         {
             item_name.Clear();
-            item_unit_select.SelectedIndex = -1;
+            item_unit_select.SelectedIndex = 0;
             item_selling_price.Clear();
-            item_account_select.SelectedIndex = -1;
+            item_account_select.SelectedIndex = 0;
             item_description.Clear();
-            item_type_goods.Checked = false;
+            item_type_goods.Checked = true;
             item_type_service.Checked = false;
 
             item_name.Enabled = true;
@@ -605,11 +622,11 @@ namespace BillingSoftware
                 item_type_service.Enabled = false;
 
                 item_name.Clear();
-                item_unit_select.SelectedIndex = -1;
+                item_unit_select.SelectedIndex = 0;
                 item_selling_price.Clear();
-                item_account_select.SelectedIndex = -1;
+                item_account_select.SelectedIndex = 0;
                 item_description.Clear();
-                item_type_goods.Checked = false;
+                item_type_goods.Checked = true;
                 item_type_service.Checked = false;
 
                 itemAddNewBtn.Enabled = true;
@@ -622,6 +639,41 @@ namespace BillingSoftware
             {
                 //do nothing
             }
+        }
+
+        private void item_unit_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void itemFormCancelBtn_Click(object sender, EventArgs e)
+        {
+            item_name.Clear();
+            item_unit_select.SelectedIndex = 0;
+            item_selling_price.Clear();
+            item_account_select.SelectedIndex = 0;
+            item_description.Clear();
+            item_type_goods.Checked = true;
+            item_type_service.Checked = false;
+
+            itemAddNewBtn.Enabled = true;
+            itemSaveBtn.Enabled = false;
+            itemModifyBtn.Enabled = false;
+            itemDeleteBtn.Enabled = false;
+            item_id = 0;
+
+            item_name.Enabled = false;
+            item_unit_select.Enabled = false;
+            item_selling_price.Enabled = false;
+            item_account_select.Enabled = false;
+            item_description.Enabled = false;
+            item_type_goods.Enabled = false;
+            item_type_service.Enabled = false;
+        }
+
+        private void itemFormExitBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

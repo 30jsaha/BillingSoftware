@@ -17,6 +17,19 @@ namespace BillingSoftware
         public MDIParent1()
         {
             InitializeComponent();
+            //this.IsMdiContainer = true;
+
+            //// Create and configure the PictureBox as the background
+            //PictureBox backgroundImage = new PictureBox();
+            //backgroundImage.Dock = DockStyle.Fill;
+            //backgroundImage.Image = Image.FromFile(@"C:\Users\PC1\Downloads\8673365_3973006.jpg");
+            //backgroundImage.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            //// Add the PictureBox to the MDI parent form
+            //this.Controls.Add(backgroundImage);
+
+            //// Send PictureBox to the back, so child forms appear in front of it
+            //backgroundImage.SendToBack();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -104,36 +117,7 @@ namespace BillingSoftware
             }
         }
 
-        private void vToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // Check if the form is already open
-            Form existingForm = Application.OpenForms["Form1"];
-
-            if (existingForm == null)  // If form doesn't exist, create a new one
-            {
-                Form1 form1 = new Form1();
-                form1.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
-                form1.Show();
-            }
-            else
-            {
-                // Minimize all other open forms except the one being brought to the front
-                foreach (Form form in this.MdiChildren)
-                {
-                    if (form != existingForm)
-                    {
-                        form.WindowState = FormWindowState.Minimized;
-                    }
-                }
-
-                // Bring the existing form to the front and restore it if it was minimized
-                existingForm.WindowState = FormWindowState.Normal;
-                existingForm.BringToFront();
-            }
-        }
-
-
-        private void accountsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void accountsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             // Check if the form is already open
             Form existingForm = Application.OpenForms["Form2"];
@@ -161,5 +145,32 @@ namespace BillingSoftware
             }
         }
 
+        private void itemsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["Form1"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                Form1 form1 = new Form1();
+                form1.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                form1.Show();
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
+        }
     }
 }
