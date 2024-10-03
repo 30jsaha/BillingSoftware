@@ -172,5 +172,33 @@ namespace BillingSoftware
                 existingForm.BringToFront();
             }
         }
+
+        private void customerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["Form3"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                Form3 form3 = new Form3();
+                form3.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                form3.Show();
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
+        }
     }
 }

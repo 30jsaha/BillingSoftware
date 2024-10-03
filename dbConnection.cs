@@ -14,5 +14,13 @@ namespace BillingSoftware
         {
             return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
         }
+        public static void ConnectToDatabase()
+        {
+            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+            {
+                connection.Open();
+                // Perform database operations
+            }
+        }
     }
 }

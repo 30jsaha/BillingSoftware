@@ -21,7 +21,7 @@ namespace BillingSoftware
         public int item_id=0;
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
         public static string GetConnectionString()
         {
