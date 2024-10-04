@@ -604,36 +604,35 @@ namespace BillingSoftware
 
                         cmd.ExecuteNonQuery();
                     }
+                    //after successfull deletion, Load the datagridview data again
+                    LoadData();
+                    item_name.Enabled = false;
+                    item_unit_select.Enabled = false;
+                    item_selling_price.Enabled = false;
+                    item_account_select.Enabled = false;
+                    item_description.Enabled = false;
+                    item_type_goods.Enabled = false;
+                    item_type_service.Enabled = false;
 
+                    item_name.Clear();
+                    item_unit_select.SelectedIndex = 0;
+                    item_selling_price.Clear();
+                    item_account_select.SelectedIndex = 0;
+                    item_description.Clear();
+                    item_type_goods.Checked = true;
+                    item_type_service.Checked = false;
+
+                    itemAddNewBtn.Enabled = true;
+                    itemSaveBtn.Enabled = false;
+                    itemModifyBtn.Enabled = false;
+                    itemDeleteBtn.Enabled = false;
+                    item_id = 0;
                     MessageBox.Show("Removed successfully", "Data Remove Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error removing data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                //after successfull deletion, Load the datagridview data again
-                LoadData();
-                item_name.Enabled = false;
-                item_unit_select.Enabled = false;
-                item_selling_price.Enabled = false;
-                item_account_select.Enabled = false;
-                item_description.Enabled = false;
-                item_type_goods.Enabled = false;
-                item_type_service.Enabled = false;
-
-                item_name.Clear();
-                item_unit_select.SelectedIndex = 0;
-                item_selling_price.Clear();
-                item_account_select.SelectedIndex = 0;
-                item_description.Clear();
-                item_type_goods.Checked = true;
-                item_type_service.Checked = false;
-
-                itemAddNewBtn.Enabled = true;
-                itemSaveBtn.Enabled = false;
-                itemModifyBtn.Enabled = false;
-                itemDeleteBtn.Enabled = false;
-                item_id = 0;
             }
             else if (dialogResult == DialogResult.No)
             {

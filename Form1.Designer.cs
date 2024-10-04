@@ -30,7 +30,7 @@ namespace BillingSoftware
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ItemFormHeading = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.item_unit_label = new System.Windows.Forms.Label();
             this.item_unit_select = new System.Windows.Forms.ComboBox();
@@ -95,15 +95,15 @@ namespace BillingSoftware
             this.itemListGBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // ItemFormHeading
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 31);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Add New Item";
+            this.ItemFormHeading.AutoSize = true;
+            this.ItemFormHeading.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.ItemFormHeading.Location = new System.Drawing.Point(24, 19);
+            this.ItemFormHeading.Name = "ItemFormHeading";
+            this.ItemFormHeading.Size = new System.Drawing.Size(188, 31);
+            this.ItemFormHeading.TabIndex = 0;
+            this.ItemFormHeading.Text = "Add New Item";
             // 
             // label2
             // 
@@ -466,7 +466,7 @@ namespace BillingSoftware
             this.Controls.Add(this.itemAddNewBtn);
             this.Controls.Add(this.itemFormExitBtn);
             this.Controls.Add(this.itemFormGroupBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ItemFormHeading);
             this.Controls.Add(this.itemSaveBtn);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -499,7 +499,7 @@ namespace BillingSoftware
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ItemFormHeading;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label item_unit_label;
         private System.Windows.Forms.ComboBox item_unit_select;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.customerDetailsGbox = new System.Windows.Forms.GroupBox();
             this.custPincode = new System.Windows.Forms.TextBox();
             this.custPincodeLabel = new System.Windows.Forms.Label();
@@ -54,7 +55,12 @@
             this.custModifyBtn = new System.Windows.Forms.Button();
             this.custCancelBtn = new System.Windows.Forms.Button();
             this.customerFormHeading = new System.Windows.Forms.Label();
+            this.billingFormDataDataSet3 = new BillingSoftware.billingFormDataDataSet3();
+            this.currencymasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.currency_masterTableAdapter = new BillingSoftware.billingFormDataDataSet3TableAdapters.currency_masterTableAdapter();
             this.customerDetailsGbox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // customerDetailsGbox
@@ -158,16 +164,16 @@
             // 
             // custCurrency
             // 
+            this.custCurrency.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.currencymasterBindingSource, "id", true));
+            this.custCurrency.DataSource = this.currencymasterBindingSource;
+            this.custCurrency.DisplayMember = "currency_name";
+            this.custCurrency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.custCurrency.FormattingEnabled = true;
-            this.custCurrency.Items.AddRange(new object[] {
-            "INR - Indian Rupee",
-            "EUR - Euro",
-            "AED - UAE Dirham",
-            "USD - United States Dollar"});
             this.custCurrency.Location = new System.Drawing.Point(168, 235);
             this.custCurrency.Name = "custCurrency";
             this.custCurrency.Size = new System.Drawing.Size(193, 21);
             this.custCurrency.TabIndex = 12;
+            this.custCurrency.ValueMember = "id";
             this.custCurrency.SelectedIndexChanged += new System.EventHandler(this.custCurrency_SelectedIndexChanged);
             // 
             // custCurrencyLabel
@@ -320,6 +326,20 @@
             this.customerFormHeading.TabIndex = 4;
             this.customerFormHeading.Text = "Add New Customer";
             // 
+            // billingFormDataDataSet3
+            // 
+            this.billingFormDataDataSet3.DataSetName = "billingFormDataDataSet3";
+            this.billingFormDataDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // currencymasterBindingSource
+            // 
+            this.currencymasterBindingSource.DataMember = "currency_master";
+            this.currencymasterBindingSource.DataSource = this.billingFormDataDataSet3;
+            // 
+            // currency_masterTableAdapter
+            // 
+            this.currency_masterTableAdapter.ClearBeforeFill = true;
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,6 +356,8 @@
             this.Load += new System.EventHandler(this.Form4_Load);
             this.customerDetailsGbox.ResumeLayout(false);
             this.customerDetailsGbox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,5 +391,8 @@
         private System.Windows.Forms.Label custStateLabel;
         private System.Windows.Forms.TextBox custPincode;
         private System.Windows.Forms.Label custPincodeLabel;
+        private billingFormDataDataSet3 billingFormDataDataSet3;
+        private System.Windows.Forms.BindingSource currencymasterBindingSource;
+        private billingFormDataDataSet3TableAdapters.currency_masterTableAdapter currency_masterTableAdapter;
     }
 }

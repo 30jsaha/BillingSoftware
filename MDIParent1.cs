@@ -79,15 +79,15 @@ namespace BillingSoftware
         {
         }
 
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
+        //private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    toolStrip.Visible = toolBarToolStripMenuItem.Checked;
+        //}
 
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
-        }
+        //private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+        //}
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -183,6 +183,62 @@ namespace BillingSoftware
                 Form3 form3 = new Form3();
                 form3.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
                 form3.Show();
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
+        }
+
+        private void vendorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["vendorForm"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                vendorForm formV = new vendorForm();
+                formV.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                formV.Show();
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
+        }
+
+        private void currencyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["currencyForm"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                currencyForm currency_Form = new currencyForm();
+                currency_Form.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                currency_Form.Show();
             }
             else
             {

@@ -33,5 +33,16 @@ namespace BillingSoftware.Properties {
                 return ((string)(this["billingFormDataConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ADZGURU\\SQLEXPRESS;Initial Catalog=billingFormData;Integrated Securit" +
+            "y=True;Encrypt=False;TrustServerCertificate=True")]
+        public string billingFormDataConnectionStringUpdated {
+            get {
+                return ((string)(this["billingFormDataConnectionStringUpdated"]));
+            }
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace BillingSoftware
         }
         private void Form4_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'billingFormDataDataSet3.currency_master' table. You can move, or remove it, as needed.
+            this.currency_masterTableAdapter.Fill(this.billingFormDataDataSet3.currency_master);
             if (customerId != 0)
             {
                 custSaveBtn.Enabled = false;
@@ -103,7 +105,7 @@ namespace BillingSoftware
                         cmd.Parameters.AddWithValue("@customer_phone", custPrimContact.Text);
                         cmd.Parameters.AddWithValue("@customer_type", cType);
                         cmd.Parameters.AddWithValue("@company_name", compName);
-                        cmd.Parameters.AddWithValue("@currency_id", custCurrency.Text);
+                        cmd.Parameters.AddWithValue("@currency_id", custCurrency.SelectedValue);
                         cmd.Parameters.AddWithValue("@customer_city", customerCity);
                         cmd.Parameters.AddWithValue("@customer_state", customerState);
                         cmd.Parameters.AddWithValue("@customer_pincode", custPincode.Text);
