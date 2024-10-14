@@ -40,6 +40,8 @@
             this.vendorAddress = new System.Windows.Forms.RichTextBox();
             this.vendorAddressLabel = new System.Windows.Forms.Label();
             this.vendorCurrency = new System.Windows.Forms.ComboBox();
+            this.currencymasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.billingFormDataDataSet3 = new BillingSoftware.billingFormDataDataSet3();
             this.vendorCurrencyLabel = new System.Windows.Forms.Label();
             this.vendorEmail = new System.Windows.Forms.TextBox();
             this.vendorEmailLabel = new System.Windows.Forms.Label();
@@ -55,14 +57,12 @@
             this.vendorSaveBtn = new System.Windows.Forms.Button();
             this.vendorFormCancelBtn = new System.Windows.Forms.Button();
             this.vendorFormExitBtn = new System.Windows.Forms.Button();
-            this.billingFormDataDataSet3 = new BillingSoftware.billingFormDataDataSet3();
-            this.currencymasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.currency_masterTableAdapter = new BillingSoftware.billingFormDataDataSet3TableAdapters.currency_masterTableAdapter();
             this.vendorFormGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).BeginInit();
             this.vendorListGBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // ItemFormHeading
@@ -185,6 +185,16 @@
             this.vendorCurrency.TabIndex = 24;
             this.vendorCurrency.ValueMember = "id";
             // 
+            // currencymasterBindingSource
+            // 
+            this.currencymasterBindingSource.DataMember = "currency_master";
+            this.currencymasterBindingSource.DataSource = this.billingFormDataDataSet3;
+            // 
+            // billingFormDataDataSet3
+            // 
+            this.billingFormDataDataSet3.DataSetName = "billingFormDataDataSet3";
+            this.billingFormDataDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // vendorCurrencyLabel
             // 
             this.vendorCurrencyLabel.AutoSize = true;
@@ -267,6 +277,7 @@
             this.vendorDataGridView.RowHeadersWidth = 70;
             this.vendorDataGridView.Size = new System.Drawing.Size(694, 360);
             this.vendorDataGridView.TabIndex = 17;
+            this.vendorDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.vendorDataGridView_CellClick);
             // 
             // vendorDeleteBtn
             // 
@@ -277,6 +288,7 @@
             this.vendorDeleteBtn.TabIndex = 35;
             this.vendorDeleteBtn.Text = "Remove";
             this.vendorDeleteBtn.UseVisualStyleBackColor = true;
+            this.vendorDeleteBtn.Click += new System.EventHandler(this.vendorDeleteBtn_Click);
             // 
             // vendorModifyBtn
             // 
@@ -287,6 +299,7 @@
             this.vendorModifyBtn.TabIndex = 34;
             this.vendorModifyBtn.Text = "Modify";
             this.vendorModifyBtn.UseVisualStyleBackColor = true;
+            this.vendorModifyBtn.Click += new System.EventHandler(this.vendorModifyBtn_Click);
             // 
             // vendorAddNewBtn
             // 
@@ -307,6 +320,7 @@
             this.vendorSaveBtn.TabIndex = 32;
             this.vendorSaveBtn.Text = "Save";
             this.vendorSaveBtn.UseVisualStyleBackColor = true;
+            this.vendorSaveBtn.Click += new System.EventHandler(this.vendorSaveBtn_Click);
             // 
             // vendorFormCancelBtn
             // 
@@ -327,16 +341,6 @@
             this.vendorFormExitBtn.Text = "Exit";
             this.vendorFormExitBtn.UseVisualStyleBackColor = true;
             this.vendorFormExitBtn.Click += new System.EventHandler(this.vendorFormExitBtn_Click);
-            // 
-            // billingFormDataDataSet3
-            // 
-            this.billingFormDataDataSet3.DataSetName = "billingFormDataDataSet3";
-            this.billingFormDataDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // currencymasterBindingSource
-            // 
-            this.currencymasterBindingSource.DataMember = "currency_master";
-            this.currencymasterBindingSource.DataSource = this.billingFormDataDataSet3;
             // 
             // currency_masterTableAdapter
             // 
@@ -362,10 +366,10 @@
             this.Load += new System.EventHandler(this.vendorForm_Load);
             this.vendorFormGroupBox.ResumeLayout(false);
             this.vendorFormGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).EndInit();
             this.vendorListGBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.vendorDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

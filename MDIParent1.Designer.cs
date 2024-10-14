@@ -34,6 +34,7 @@ namespace BillingSoftware
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.masterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.companyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vendorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,6 @@ namespace BillingSoftware
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.currencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -101,6 +101,14 @@ namespace BillingSoftware
             this.companyToolStripMenuItem.Name = "companyToolStripMenuItem";
             this.companyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.companyToolStripMenuItem.Text = "Company";
+            this.companyToolStripMenuItem.Click += new System.EventHandler(this.companyToolStripMenuItem_Click);
+            // 
+            // currencyToolStripMenuItem
+            // 
+            this.currencyToolStripMenuItem.Name = "currencyToolStripMenuItem";
+            this.currencyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.currencyToolStripMenuItem.Text = "Currency";
+            this.currencyToolStripMenuItem.Click += new System.EventHandler(this.currencyToolStripMenuItem_Click);
             // 
             // itemsToolStripMenuItem
             // 
@@ -301,13 +309,6 @@ namespace BillingSoftware
             // timer1
             // 
             this.timer1.Interval = 1;
-            // 
-            // currencyToolStripMenuItem
-            // 
-            this.currencyToolStripMenuItem.Name = "currencyToolStripMenuItem";
-            this.currencyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.currencyToolStripMenuItem.Text = "Currency";
-            this.currencyToolStripMenuItem.Click += new System.EventHandler(this.currencyToolStripMenuItem_Click);
             // 
             // MDIParent1
             // 
