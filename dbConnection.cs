@@ -12,7 +12,15 @@ namespace BillingSoftware
     {
         public static string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+            // return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+            string db_name = Constants.dbName;
+            return "Data Source=ADZGURU\\SQLEXPRESS;Initial Catalog="+db_name+";Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
+        }
+        public static string GetCommonDBConnectionString()
+        {
+            // return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+            string db_name = "accountsGeneralData";
+            return "Data Source=ADZGURU\\SQLEXPRESS;Initial Catalog="+db_name+";Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
         }
         public static void ConnectToDatabase()
         {

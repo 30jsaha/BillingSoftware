@@ -12,5 +12,9 @@ namespace BillingSoftware
         public const int item_id = 0;
         public const int customerBtype = 1;
         public const int customerItype = 2;
+        public const int companyStartId = 1001;
+        public const int ADMIN = 7;
+        public const int STAFF = 6;
+        public static string dbName = "billingFormData";
     }
 }
