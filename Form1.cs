@@ -25,7 +25,8 @@ namespace BillingSoftware
         }
         public static string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+            // return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+            return dbConnection.GetMasterConnectionString();
         }
         public static string GetToday(bool tm = true, string dateFormat = "yyyy-MM-dd", string timeFormat="hh:mm:ss")
         {

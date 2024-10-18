@@ -16,6 +16,10 @@ namespace BillingSoftware
             string db_name = Constants.dbName;
             return "Data Source=ADZGURU\\SQLEXPRESS;Initial Catalog="+db_name+";Integrated Security=True;Encrypt=False;TrustServerCertificate=True";
         }
+        public static string GetMasterConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;
+        }
         public static string GetCommonDBConnectionString()
         {
             // return ConfigurationManager.ConnectionStrings["billingFormData"].ConnectionString;

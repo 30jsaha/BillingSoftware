@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.createCompanyGbox = new System.Windows.Forms.GroupBox();
+            this.companyAdminUserGbox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comUserPassword = new System.Windows.Forms.TextBox();
+            this.comUserPasswordlabel = new System.Windows.Forms.Label();
+            this.comUserId = new System.Windows.Forms.TextBox();
+            this.comUserIdLabel = new System.Windows.Forms.Label();
             this.comFiscalYrEndDateLabel = new System.Windows.Forms.Label();
             this.comFiscalYrEndDate = new System.Windows.Forms.DateTimePicker();
             this.comFiscalYrStDateLabel = new System.Windows.Forms.Label();
@@ -51,16 +57,10 @@
             this.companyExitBtn = new System.Windows.Forms.Button();
             this.companyFormHeading = new System.Windows.Forms.Label();
             this.companySaveBtn = new System.Windows.Forms.Button();
-            this.companyAdminUserGbox = new System.Windows.Forms.GroupBox();
-            this.comUserIdLabel = new System.Windows.Forms.Label();
-            this.comUserId = new System.Windows.Forms.TextBox();
-            this.comUserPassword = new System.Windows.Forms.TextBox();
-            this.comUserPasswordlabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.createCompanyGbox.SuspendLayout();
+            this.companyAdminUserGbox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).BeginInit();
-            this.companyAdminUserGbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // createCompanyGbox
@@ -86,6 +86,62 @@
             this.createCompanyGbox.TabIndex = 0;
             this.createCompanyGbox.TabStop = false;
             this.createCompanyGbox.Text = "Company Details";
+            // 
+            // companyAdminUserGbox
+            // 
+            this.companyAdminUserGbox.Controls.Add(this.label1);
+            this.companyAdminUserGbox.Controls.Add(this.comUserPassword);
+            this.companyAdminUserGbox.Controls.Add(this.comUserPasswordlabel);
+            this.companyAdminUserGbox.Controls.Add(this.comUserId);
+            this.companyAdminUserGbox.Controls.Add(this.comUserIdLabel);
+            this.companyAdminUserGbox.Location = new System.Drawing.Point(385, 152);
+            this.companyAdminUserGbox.Name = "companyAdminUserGbox";
+            this.companyAdminUserGbox.Size = new System.Drawing.Size(329, 188);
+            this.companyAdminUserGbox.TabIndex = 29;
+            this.companyAdminUserGbox.TabStop = false;
+            this.companyAdminUserGbox.Text = "Admin User Details";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(22, 132);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(285, 41);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "*Fill up the User id and Password to create the admin user for this company. Plea" +
+    "se remember the user id & password to access your account later";
+            // 
+            // comUserPassword
+            // 
+            this.comUserPassword.Location = new System.Drawing.Point(124, 84);
+            this.comUserPassword.Name = "comUserPassword";
+            this.comUserPassword.Size = new System.Drawing.Size(164, 20);
+            this.comUserPassword.TabIndex = 3;
+            // 
+            // comUserPasswordlabel
+            // 
+            this.comUserPasswordlabel.AutoSize = true;
+            this.comUserPasswordlabel.Location = new System.Drawing.Point(35, 87);
+            this.comUserPasswordlabel.Name = "comUserPasswordlabel";
+            this.comUserPasswordlabel.Size = new System.Drawing.Size(53, 13);
+            this.comUserPasswordlabel.TabIndex = 2;
+            this.comUserPasswordlabel.Text = "Password";
+            // 
+            // comUserId
+            // 
+            this.comUserId.Location = new System.Drawing.Point(125, 49);
+            this.comUserId.Name = "comUserId";
+            this.comUserId.Size = new System.Drawing.Size(163, 20);
+            this.comUserId.TabIndex = 1;
+            // 
+            // comUserIdLabel
+            // 
+            this.comUserIdLabel.AutoSize = true;
+            this.comUserIdLabel.Location = new System.Drawing.Point(36, 52);
+            this.comUserIdLabel.Name = "comUserIdLabel";
+            this.comUserIdLabel.Size = new System.Drawing.Size(41, 13);
+            this.comUserIdLabel.TabIndex = 0;
+            this.comUserIdLabel.Text = "User Id";
             // 
             // comFiscalYrEndDateLabel
             // 
@@ -258,62 +314,6 @@
             this.companySaveBtn.UseVisualStyleBackColor = true;
             this.companySaveBtn.Click += new System.EventHandler(this.companySaveBtn_Click);
             // 
-            // companyAdminUserGbox
-            // 
-            this.companyAdminUserGbox.Controls.Add(this.label1);
-            this.companyAdminUserGbox.Controls.Add(this.comUserPassword);
-            this.companyAdminUserGbox.Controls.Add(this.comUserPasswordlabel);
-            this.companyAdminUserGbox.Controls.Add(this.comUserId);
-            this.companyAdminUserGbox.Controls.Add(this.comUserIdLabel);
-            this.companyAdminUserGbox.Location = new System.Drawing.Point(385, 152);
-            this.companyAdminUserGbox.Name = "companyAdminUserGbox";
-            this.companyAdminUserGbox.Size = new System.Drawing.Size(329, 188);
-            this.companyAdminUserGbox.TabIndex = 29;
-            this.companyAdminUserGbox.TabStop = false;
-            this.companyAdminUserGbox.Text = "Admin User Details";
-            // 
-            // comUserIdLabel
-            // 
-            this.comUserIdLabel.AutoSize = true;
-            this.comUserIdLabel.Location = new System.Drawing.Point(36, 52);
-            this.comUserIdLabel.Name = "comUserIdLabel";
-            this.comUserIdLabel.Size = new System.Drawing.Size(41, 13);
-            this.comUserIdLabel.TabIndex = 0;
-            this.comUserIdLabel.Text = "User Id";
-            // 
-            // comUserId
-            // 
-            this.comUserId.Location = new System.Drawing.Point(125, 49);
-            this.comUserId.Name = "comUserId";
-            this.comUserId.Size = new System.Drawing.Size(163, 20);
-            this.comUserId.TabIndex = 1;
-            // 
-            // comUserPassword
-            // 
-            this.comUserPassword.Location = new System.Drawing.Point(124, 84);
-            this.comUserPassword.Name = "comUserPassword";
-            this.comUserPassword.Size = new System.Drawing.Size(164, 20);
-            this.comUserPassword.TabIndex = 3;
-            // 
-            // comUserPasswordlabel
-            // 
-            this.comUserPasswordlabel.AutoSize = true;
-            this.comUserPasswordlabel.Location = new System.Drawing.Point(35, 87);
-            this.comUserPasswordlabel.Name = "comUserPasswordlabel";
-            this.comUserPasswordlabel.Size = new System.Drawing.Size(53, 13);
-            this.comUserPasswordlabel.TabIndex = 2;
-            this.comUserPasswordlabel.Text = "Password";
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(22, 132);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(285, 41);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "*Fill up the User id and Password to create the admin user for this company. Plea" +
-    "se remember the user id & password to access your account later";
-            // 
             // CompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,10 +330,10 @@
             this.Load += new System.EventHandler(this.CompanyForm_Load);
             this.createCompanyGbox.ResumeLayout(false);
             this.createCompanyGbox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).EndInit();
             this.companyAdminUserGbox.ResumeLayout(false);
             this.companyAdminUserGbox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.currencymasterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.billingFormDataDataSet3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

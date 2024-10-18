@@ -46,6 +46,38 @@ namespace BillingSoftware
                     this.Close();
                 }
             }
+            
+            if (!Constants.isLoggedIn)
+            {
+                ShowbeginningForm();
+            }
+        }
+        private void ShowbeginningForm()
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["beginningForm"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                beginningForm beginning_form = new beginningForm();
+                // beginning_form.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                beginning_form.ShowDialog(this);
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
         }
         private void clearCompanyFormFields()
         {
@@ -232,20 +264,21 @@ namespace BillingSoftware
                     }));
 
                     // string companyDbName = $"accountsData_{companyNameText.Replace(" ", "_")}_{fiscalStartYear}_{fiscalEndYear}";
-                    string companyDbName = $"accountsData_{companyNameText.Replace(" ", "_")}";
+                    string companyDbName = $"{Constants.defaultCompanyDbNamePrefix}_{companyNameText.Replace(" ", "_")}";
 
                     using (SqlConnection commonConnection = new SqlConnection(dbConnection.GetCommonDBConnectionString()))
                     {
                         commonConnection.Open();
 
-                        // Check if database with the same name exists
-                        var checkDbSql = $"SELECT database_id FROM sys.databases WHERE Name = '{companyDbName}'";
-                        SqlCommand checkCmd = new SqlCommand(checkDbSql, commonConnection);
-                        var dbExists = checkCmd.ExecuteScalar();
-
-                        if (dbExists != null)
+                        //check if user id already exists
+                        var checkUserIdSql = $"SELECT login_user_id FROM [accountsGeneralData].[dbo].[user_data] WHERE login_user_id = '{comUserIdText}'";
+                        SqlCommand checkUserId = new SqlCommand(checkUserIdSql, commonConnection);
+                        var UserIdExists = checkUserId.ExecuteScalar();
+                        if (UserIdExists != null)
                         {
-                            throw new Exception("Database with the same name already exists!");
+                            // throw new Exception("User Id already exists!");
+                            MessageBox.Show("User Id already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
 
                         //get company id
@@ -257,6 +290,19 @@ namespace BillingSoftware
 
                         // Make sure to handle null values or convert them to the correct type
                         companyId = (commonComData != null) ? (Convert.ToInt32(commonComData)+1) : Constants.companyStartId;
+
+                        companyDbName = $"{Constants.defaultCompanyDbNamePrefix}_{companyId}";
+                        // Check if database with the same name exists
+                        var checkDbSql = $"SELECT database_id FROM sys.databases WHERE Name = '{companyDbName}'";
+                        SqlCommand checkCmd = new SqlCommand(checkDbSql, commonConnection);
+                        var dbExists = checkCmd.ExecuteScalar();
+
+                        if (dbExists != null)
+                        {
+                            // throw new Exception("Database with the same name already exists!");
+                            MessageBox.Show("Database with the same name already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
 
                         var setCompCommonDbEntrySql = "INSERT INTO company_data (company_id, company_name, full_database_name, active, status, creation_date) " +
                         "VALUES (@company_id, @company_name, @full_database_name, @active, @status, @creation_date)";
@@ -353,6 +399,37 @@ namespace BillingSoftware
                 });
 
                 MessageBox.Show($"Data Inserted Successfully and Database Created!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                clearCompanyFormFields();
+                if (!Constants.isLoggedIn)
+                {
+                    // LoaderForm loader = new LoaderForm();
+                    // loader.Show();
+                    // Check if the form is already open
+                    Form existingForm = Application.OpenForms["AppLoginForm"];
+
+                    if (existingForm == null)  // If form doesn't exist, create a new one
+                    {
+                        AppLoginForm Login_Form = new AppLoginForm();
+                        Login_Form.Show();
+                    }
+                    else
+                    {
+                        // Minimize all other open forms except the one being brought to the front
+                        foreach (Form form in this.MdiChildren)
+                        {
+                            if (form != existingForm)
+                            {
+                                form.WindowState = FormWindowState.Minimized;
+                            }
+                        }
+
+                        // Bring the existing form to the front and restore it if it was minimized
+                        existingForm.WindowState = FormWindowState.Normal;
+                        existingForm.BringToFront();
+                    }
+                    // loader.Close();
+                }
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -363,9 +440,6 @@ namespace BillingSoftware
                 // Close the loader form when the task is done
                 loader.Close();
             }
-
-            clearCompanyFormFields();
-            this.Close();
         }
 
     }

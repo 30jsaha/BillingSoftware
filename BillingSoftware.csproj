@@ -172,6 +172,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppLoginForm.Designer.cs">
+      <DependentUpon>AppLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="beginningForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="beginningForm.Designer.cs">
+      <DependentUpon>beginningForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="billingFormDataAccountsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -254,12 +266,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserCompanyListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserCompanyListForm.Designer.cs">
+      <DependentUpon>UserCompanyListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="vendorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="vendorForm.Designer.cs">
       <DependentUpon>vendorForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AppLoginForm.resx">
+      <DependentUpon>AppLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="beginningForm.resx">
+      <DependentUpon>beginningForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CompanyForm.resx">
       <DependentUpon>CompanyForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +318,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserCompanyListForm.resx">
+      <DependentUpon>UserCompanyListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="vendorForm.resx">
       <DependentUpon>vendorForm.cs</DependentUpon>
     </EmbeddedResource>

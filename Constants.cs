@@ -16,5 +16,11 @@ namespace BillingSoftware
         public const int ADMIN = 7;
         public const int STAFF = 6;
         public static string dbName = "billingFormData";
+        public static string defaultCompanyDbNamePrefix = "accountsData";
+        public static string defaultUserName = "User";
+        public static int selectedCompanyId = 0;
+        public static bool isLoggedIn = false;
+        public static int LoggedInUserId = 0;
+        public static int LoggedInUserType = 0;
     }
 }

@@ -32,6 +32,65 @@ namespace BillingSoftware
             //backgroundImage.SendToBack();
         }
 
+        private void MDIParent1_Load(object sender, EventArgs e)
+        {
+            ShowbeginningForm();
+            if (!Constants.isLoggedIn)
+            {
+                masterToolStripMenuItem.Enabled = false;
+                transactionToolStripMenuItem.Enabled = false;
+                reportToolStripMenuItem.Enabled = false;
+                utilityToolStripMenuItem.Enabled = false;
+                accountsToolStripMenuItem.Enabled = false;
+                itemsToolStripMenuItem.Enabled = false;
+                customerToolStripMenuItem.Enabled = false;
+                vendorToolStripMenuItem.Enabled = false;
+                currencyToolStripMenuItem.Enabled = false;
+                loginToolStripMenuItem.Enabled = false;
+                loginToolStripMenuItem.Text = "Login";
+            } 
+            else
+            {
+                masterToolStripMenuItem.Enabled = true;
+                transactionToolStripMenuItem.Enabled = true;
+                reportToolStripMenuItem.Enabled = true;
+                utilityToolStripMenuItem.Enabled = true;
+                accountsToolStripMenuItem.Enabled = true;
+                itemsToolStripMenuItem.Enabled = true;
+                customerToolStripMenuItem.Enabled = true;
+                vendorToolStripMenuItem.Enabled = true;
+                currencyToolStripMenuItem.Enabled = true;
+                loginToolStripMenuItem.Enabled = true;
+                loginToolStripMenuItem.Text = "Exit";
+            }
+        }
+        private void ShowbeginningForm()
+        {
+            // Check if the form is already open
+            Form existingForm = Application.OpenForms["AppLoginForm"];
+
+            if (existingForm == null)  // If form doesn't exist, create a new one
+            {
+                AppLoginForm beginning_form = new AppLoginForm();
+                beginning_form.MdiParent = this;  // Set as child of MDI parent if this is an MDI form
+                beginning_form.Show();
+            }
+            else
+            {
+                // Minimize all other open forms except the one being brought to the front
+                foreach (Form form in this.MdiChildren)
+                {
+                    if (form != existingForm)
+                    {
+                        form.WindowState = FormWindowState.Minimized;
+                    }
+                }
+
+                // Bring the existing form to the front and restore it if it was minimized
+                existingForm.WindowState = FormWindowState.Normal;
+                existingForm.BringToFront();
+            }
+        }
         private void ShowNewForm(object sender, EventArgs e)
         {
             Form childForm = new Form();
@@ -282,6 +341,45 @@ namespace BillingSoftware
                 // Bring the existing form to the front and restore it if it was minimized
                 existingForm.WindowState = FormWindowState.Normal;
                 existingForm.BringToFront();
+            }
+        }
+
+        private void loginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Constants.isLoggedIn)
+            {
+                //this.Text = "Welcome " + Constants.defaultUserName;
+                Application.Exit();
+            }
+            else 
+            {
+                //this.Text = "Login";
+                LoaderForm loader = new LoaderForm();
+                loader.Show();
+                // Check if the form is already open
+                Form existingForm = Application.OpenForms["AppLoginForm"];
+
+                if (existingForm == null)  // If form doesn't exist, create a new one
+                {
+                    AppLoginForm Login_Form = new AppLoginForm();
+                    Login_Form.Show();
+                }
+                else
+                {
+                    // Minimize all other open forms except the one being brought to the front
+                    foreach (Form form in this.MdiChildren)
+                    {
+                        if (form != existingForm)
+                        {
+                            form.WindowState = FormWindowState.Minimized;
+                        }
+                    }
+
+                    // Bring the existing form to the front and restore it if it was minimized
+                    existingForm.WindowState = FormWindowState.Normal;
+                    existingForm.BringToFront();
+                }
+                loader.Close();
             }
         }
     }

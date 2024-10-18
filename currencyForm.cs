@@ -90,7 +90,7 @@ namespace BillingSoftware
                 //Save Data
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(dbConnection.GetConnectionString()))
+                    using (SqlConnection connection = new SqlConnection(dbConnection.GetMasterConnectionString()))
                     {
                         connection.Open();
                         var mSql = "insert into currency_master (currency_name, currency_details, status, created_at) values(@currency_name, @currency_details, @status, @created_at)";
@@ -124,7 +124,7 @@ namespace BillingSoftware
                 }
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(dbConnection.GetConnectionString()))
+                    using (SqlConnection connection = new SqlConnection(dbConnection.GetMasterConnectionString()))
                     {
                         connection.Open();
                         string query = "UPDATE currency_master SET currency_name = @currency_name, currency_details = @currency_details, updated_at = @updated_at " +
@@ -194,7 +194,7 @@ namespace BillingSoftware
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(dbConnection.GetConnectionString()))
+                using (SqlConnection connection = new SqlConnection(dbConnection.GetMasterConnectionString()))
                 {
                     // SQL query
                     string query = @"
@@ -263,7 +263,7 @@ namespace BillingSoftware
             {
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(dbConnection.GetConnectionString()))
+                    using (SqlConnection connection = new SqlConnection(dbConnection.GetMasterConnectionString()))
                     {
                         connection.Open();
                         string query = "UPDATE currency_master SET status = @status " +
